@@ -1,0 +1,12 @@
+{
+  "plugins": ["transform-decorators"],
+  "presets": [
+    ["env", {
+      "targets": {
+        "chrome": 45,
+        "ie": 10
+      },
+      "modules": "umd"
+    }]
+  ]
+}
