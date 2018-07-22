@@ -1,6 +1,6 @@
 {
   "name": "aop-monitor",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,9 +16,7 @@
     "url": "https://github.com/mini-peanut/aop-monitor/issues"
   },
   "homepage": "https://github.com/mini-peanut/aop-monitor#readme",
-  "dependencies": {
-    "lodash.isfunction": "^3.0.9"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-plugin-transform-decorators": "^6.24.1",
     "babel-preset-env": "^1.7.0"

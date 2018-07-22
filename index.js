@@ -5,9 +5,34 @@
  * - 监控函数调用发生在业务逻辑函数调用之后；
  * - 监控逻辑不能修改业务逻辑的数据或者返回结果
  *
- * @author mini-huax
+ * @author mini-peanut
  */
-import isFunction from 'lodash.isfunction';
+
+const isFunction = fn => typeof fn === "function";
+
+/**
+ *
+ * @param send 发送埋点的方法
+ * @returns {function(*=): function(*): *}
+ */
+function initAopMonitor(send) {
+
+    /**
+     * @param {Object} watchlist 监控列表
+     */
+    return (watchList = {}) =>  (target) => {
+        const owner = target.prototype || target;
+
+        for (const item in watchList) {
+            if (watchList.hasOwnProperty(item) && owner.hasOwnProperty(item)) {
+                inject(item, owner, watchList[item], send);
+            }
+        }
+
+        return target;
+    }
+}
+
 
 /**
  * inject 劫持注入callback
@@ -19,11 +44,11 @@ import isFunction from 'lodash.isfunction';
  * @param {Function} send 发送埋点的方法
  */
 function inject(item, owner, callback, send) {
-    if (isFunction(owner[item])) {
+    if (!isFunction(owner[item])) {
         throw new Error('item should be function');
     }
 
-    if (isFunction(callback)) {
+    if (!isFunction(callback)) {
         throw new Error('callback should be function');
     }
 
@@ -65,28 +90,6 @@ function after(func, afterFunc) {
     };
 }
 
-/**
- *
- * @param send 发送埋点的方法
- * @returns {function(*=): function(*): *}
- */
-function initMonitor(send) {
 
-    /**
-     * @param {Object} watchlist 监控列表
-     */
-    return (watchList = {}) =>  (target) => {
-        const owner = target.prototype || target;
-
-        for (const item in watchList) {
-            if (watchList.hasOwnProperty(item) && owner.hasOwnProperty(item)) {
-                inject(item, owner, watchList[item], send);
-            }
-        }
-
-        return target;
-    }
-}
-
-export default initMonitor
+module.exports = initAopMonitor;
 
