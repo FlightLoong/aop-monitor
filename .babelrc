@@ -2,11 +2,11 @@
   "plugins": ["transform-decorators"],
   "presets": [
     ["env", {
+      "modules": false,
       "targets": {
-        "chrome": 45,
-        "ie": 10
-      },
-      "modules": "umd"
-    }]
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      }
+    }],
+    "stage-2"
   ]
 }

@@ -20,7 +20,7 @@ function initAopMonitor(send) {
     /**
      * @param {Object} watchlist 监控列表
      */
-    return (watchList = {}) =>  (target) => {
+    return (watchList = {}) => (target) => {
         const owner = target.prototype || target;
 
         for (const item in watchList) {
@@ -76,7 +76,7 @@ function inject(item, owner, callback, send) {
  */
 function after(func, afterFunc) {
 
-    return function() {
+    return function () {
         const result = func.apply(this, arguments);
         // 为了防止后置出错
         try {
